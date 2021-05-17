@@ -5,7 +5,6 @@ from pprint import pprint
 import shutil
 
 stats={
-    "sensible": 0,
     "roles" : 0,
     "files" : 0
 }
@@ -30,9 +29,11 @@ def write_role_files(roles_dir, role_name, role_data):
 
 def expand_sensible(sensible_dir, roles_dir):
     for sensible_file in os.listdir(sensible_dir):
+        
         ff = os.path.join(sensible_dir, sensible_file)
         data = load_yaml_file(ff)    
         (role_name, ext) = os.path.splitext(sensible_file)
+        print("role", role_name)
         write_role_files(roles_dir, role_name, data)
 
 
@@ -45,7 +46,7 @@ def main():
         pass
     os.mkdir(dst)
     expand_sensible(src,dst)
-    print("transformed sensible into", stats)
+    print("sensible transformed into", stats)
 
     try:
         sl = os.readlink("roles")
